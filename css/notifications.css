@@ -1,0 +1,75 @@
+/* =========================================================
+   NOTIFICATIONS.CSS
+   ========================================================= */
+
+.notifications {
+    position: fixed;
+
+    top: 85px;
+    right: 20px;
+
+    z-index: var(--z-notification);
+
+    width: min(360px, calc(100vw - 40px));
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 15px;
+
+    background: rgba(7,17,31,.95);
+
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--color-primary);
+
+    border-radius: 12px;
+
+    box-shadow: var(--shadow-medium);
+
+    animation: notificationIn .3s ease;
+}
+
+.notification.success {
+    border-left-color: var(--color-success);
+}
+
+.notification.warning {
+    border-left-color: var(--color-warning);
+}
+
+.notification.error {
+    border-left-color: var(--color-danger);
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 800;
+    margin-bottom: 3px;
+}
+
+.notification-message {
+    color: var(--color-text-soft);
+    font-size: 12px;
+}
+
+@keyframes notificationIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

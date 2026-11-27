@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entrar na Partida</title>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/background.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/room.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+
+<div class="background">
+    <div class="bg-light bg-light-1"></div>
+    <div class="bg-light bg-light-2"></div>
+</div>
+
+<main class="room">
+
+    <div class="room-container">
+
+        <div class="room-header">
+
+            <div>
+                <h1 class="room-title">Entrar na Partida</h1>
+                <p class="muted" id="joinStatus">Digite o código da sala</p>
+            </div>
+
+            <button
+                class="lobby-button"
+                onclick="location.href='../index.html'">
+                VOLTAR
+            </button>
+
+        </div>
+
+        <section class="settings-section">
+
+            <h2>Dados do jogador</h2>
+
+            <div class="setting-row">
+
+                <div class="setting-label">
+                    <strong>Nome</strong>
+                    <span>Seu nome durante a partida</span>
+                </div>
+
+                <div class="setting-control">
+                    <input
+                        id="playerName"
+                        type="text"
+                        maxlength="20"
+                        placeholder="Seu nome">
+                </div>
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-label">
+                    <strong>Código da sala</strong>
+                    <span>Exemplo: A7K2P</span>
+                </div>
+
+                <div class="setting-control">
+                    <input
+                        id="roomCode"
+                        type="text"
+                        maxlength="5"
+                        placeholder="CÓDIGO"
+                        style="text-transform:uppercase;">
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="room-actions">
+
+            <button
+                id="joinBtn"
+                onclick="joinRoom()"
+                style="background:var(--color-primary);color:#07111f;">
+                ENTRAR NA SALA
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+"use strict";
+
+const socket = io({
+    transports: ["websocket", "polling"],
+    reconnection: true,
+    reconnectionAttempts: 10
+});
+
+const nameInput = document.getElementById("playerName");
+const codeInput = document.getElementById("roomCode");
+const statusText = document.getElementById("joinStatus");
+const joinBtn = document.getElementById("joinBtn");
+
+/* Preenche automaticamente se o jogador já digitou na tela inicial */
+const savedName = sessionStorage.getItem("playerName") || localStorage.getItem("playerName");
+const savedCode = sessionStorage.getItem("roomCode") || localStorage.getItem("roomCode");
+
+if (savedName) nameInput.value = savedName;
+if (savedCode) codeInput.value = savedCode.toUpperCase().slice(0, 5);
+
+codeInput.addEventListener("input", function () {
+    this.value = this.value
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, "")
+        .slice(0, 5);
+});
+
+function joinRoom() {
+    const name = nameInput.value.trim();
+    const code = codeInput.value.trim().toUpperCase();
+
+    if (!name) {
+        alert("Digite seu nome.");
+        nameInput.focus();
+        return;
+    }
+
+    if (!code || code.length !== 5) {
+        alert("Digite o código válido da sala (5 caracteres).");
+        codeInput.focus();
+        return;
+    }
+
+    if (!socket.connected) {
+        statusText.textContent = "Conectando ao servidor...";
+        socket.connect();
+        return;
+    }
+
+    joinBtn.disabled = true;
+    statusText.textContent = "Entrando na sala...";
+
+    socket.emit(
+        "room:join",
+        {
+            code: code,
+            name: name
+        },
+        function (response) {
+            if (!response || !response.success) {
+                joinBtn.disabled = false;
+                statusText.textContent = "Digite o código da sala";
+                alert((response && (response.error || response.message)) || "Não foi possível entrar na sala.");
+                return;
+            }
+
+            localStorage.setItem("playerName", name);
+            localStorage.setItem("roomCode", response.room.code);
+            localStorage.setItem("roomHost", "false");
+
+            if (response.playerId) {
+                localStorage.setItem("playerId", response.playerId);
+            }
+
+            if (response.room && response.room.hostId) {
+                localStorage.setItem("hostId", response.room.hostId);
+            }
+
+            localStorage.setItem("roomData", JSON.stringify(response.room));
+
+            location.href = "lobby.html";
+        }
+    );
+}
+
+/* Se já veio da tela inicial com nome e código preenchidos, entra automaticamente ao conectar */
+socket.once("connect", function () {
+    if (savedName && savedCode && savedCode.length === 5) {
+        joinRoom();
+    }
+});
+</script>
+
+</body>
+</html>

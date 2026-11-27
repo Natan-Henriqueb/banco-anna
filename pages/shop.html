@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Loja</title>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/background.css">
+    <link rel="stylesheet" href="../css/shop.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="background">
+    <div class="bg-light bg-light-1"></div>
+    <div class="bg-light bg-light-2"></div>
+</div>
+
+<main class="shop">
+
+    <div class="shop-container">
+
+        <header class="shop-header">
+
+            <h1>LOJA</h1>
+
+            <button
+                class="lobby-button"
+                onclick="location.href='../index.html'">
+                VOLTAR
+            </button>
+
+        </header>
+
+        <div class="shop-grid">
+
+            <div class="shop-item">
+
+                <div class="shop-item-preview">
+                    ♟
+                </div>
+
+                <h3>Peça Clássica</h3>
+
+                <p>
+                    Uma peça tradicional.
+                </p>
+
+                <div class="shop-price">
+                    GRÁTIS
+                </div>
+
+                <button class="shop-buy">
+                    SELECIONAR
+                </button>
+
+            </div>
+
+            <div class="shop-item">
+
+                <div class="shop-item-preview">
+                    👑
+                </div>
+
+                <h3>Peça Real</h3>
+
+                <p>
+                    Um visual especial.
+                </p>
+
+                <div class="shop-price">
+                    500
+                </div>
+
+                <button
+                    class="shop-buy"
+                    onclick="buyItem('Peça Real')">
+                    COMPRAR
+                </button>
+
+            </div>
+
+            <div class="shop-item">
+
+                <div class="shop-item-preview">
+                    💎
+                </div>
+
+                <h3>Peça Premium</h3>
+
+                <p>
+                    Edição especial.
+                </p>
+
+                <div class="shop-price">
+                    1000
+                </div>
+
+                <button
+                    class="shop-buy"
+                    onclick="buyItem('Peça Premium')">
+                    COMPRAR
+                </button>
+
+            </div>
+
+            <div class="shop-item">
+
+                <div class="shop-item-preview">
+                    🏆
+                </div>
+
+                <h3>Peça Campeão</h3>
+
+                <p>
+                    Para jogadores vencedores.
+                </p>
+
+                <div class="shop-price">
+                    2000
+                </div>
+
+                <button
+                    class="shop-buy"
+                    onclick="buyItem('Peça Campeão')">
+                    COMPRAR
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+
+function buyItem(item) {
+    alert(item + " selecionado.");
+}
+
+</script>
+
+</body>
+</html>

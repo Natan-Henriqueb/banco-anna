@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Banco Imobiliário — Jogo</title>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/background.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/board.css">
+    <link rel="stylesheet" href="../css/dice.css">
+    <link rel="stylesheet" href="../css/hud.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+
+<div class="game-world">
+
+    <!-- FUNDO -->
+    <div class="city-background">
+        <div class="city-glow"></div>
+
+        <div class="building b1"></div>
+        <div class="building b2"></div>
+        <div class="building b3"></div>
+        <div class="building b4"></div>
+        <div class="building b5"></div>
+        <div class="building b6"></div>
+        <div class="building b7"></div>
+        <div class="building b8"></div>
+    </div>
+
+    <!-- PARTÍCULAS -->
+    <div class="particles">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- DADOS FLUTUANDO -->
+    <div class="floating-dice floating-dice-one">⚄</div>
+    <div class="floating-dice floating-dice-two">⚂</div>
+
+    <!-- HUD DO JOGADOR -->
+    <aside class="player-card">
+
+        <div class="player-avatar">
+            <span id="playerInitial">N</span>
+        </div>
+
+        <div class="player-info">
+            <strong id="playerName">Natan</strong>
+            <span id="playerMoney">R$ 1.500</span>
+        </div>
+
+        <div class="player-badge">
+            VOCÊ
+        </div>
+
+        <div class="player-stats">
+
+            <div>
+                <span>🏠</span>
+                <small>Propriedades</small>
+                <b id="propertyCount">0</b>
+            </div>
+
+            <div>
+                <span>🏆</span>
+                <small>Vitórias</small>
+                <b>0</b>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- INDICADOR DE TURNO -->
+    <div class="turn-card" id="turnCard">
+
+        <div class="turn-dice-icon">
+            🎲
+        </div>
+
+        <div>
+            <span>TURNO</span>
+            <strong id="turnPlayer">Natan</strong>
+        </div>
+
+        <div class="turn-status" id="turnStatus">
+            SUA VEZ
+        </div>
+
+    </div>
+
+    <!-- MENU LATERAL -->
+    <aside class="game-menu">
+
+        <button class="menu-button" onclick="goLobby()">
+            <span>⌂</span>
+            <b>LOBBY</b>
+        </button>
+
+        <button class="menu-button" onclick="openProfile()">
+            <span>♟</span>
+            <b>PERFIL</b>
+        </button>
+
+        <button class="menu-button" onclick="openShop()">
+            <span>🛒</span>
+            <b>LOJA</b>
+        </button>
+
+        <button class="menu-button" onclick="openSettings()">
+            <span>⚙</span>
+            <b>CONFIGURAÇÕES</b>
+        </button>
+
+        <button class="menu-button" onclick="openHelp()">
+            <span>📖</span>
+            <b>COMO JOGAR</b>
+        </button>
+
+        <button class="menu-button" onclick="openCredits()">
+            <span>★</span>
+            <b>CRÉDITOS</b>
+        </button>
+
+        <div class="players-online">
+
+            <span>👥</span>
+
+            <div>
+                <strong id="onlinePlayers">1 / 8</strong>
+                <small>Jogadores</small>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="game-area">
+
+        <!-- TÍTULO -->
+        <div class="game-logo">
+
+            <div class="logo-city">
+                ♛
+            </div>
+
+            <div class="logo-title">
+                <strong>BANCO</strong>
+                <span>IMOBILIÁRIO</span>
+            </div>
+
+            <div class="logo-subtitle">
+                MULTIPLAYER
+            </div>
+
+        </div>
+
+        <!-- TABULEIRO -->
+        <section class="board">
+
+            <!-- TOPO -->
+            <div class="board-side board-top">
+
+                <div class="corner-cell start-cell" data-position="0">
+                    <div class="cell-icon">♛</div>
+                    <strong>INÍCIO</strong>
+                    <small>R$ 200</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell blue" data-position="1">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>PAULISTA</strong>
+                    <span>R$ 100</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell blue" data-position="2">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>AUGUSTA</strong>
+                    <span>R$ 120</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="chance-cell" data-position="3">
+                    <div class="cell-icon">?</div>
+                    <strong>SORTE</strong>
+                    <span>OU REVÉS</span>
+                    <small>R$ 120</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell blue" data-position="4">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>BRASIL</strong>
+                    <span>R$ 140</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="station-cell" data-position="5">
+                    <div class="cell-icon">🚉</div>
+                    <strong>ESTAÇÃO</strong>
+                    <small>R$ 200</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell pink" data-position="6">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>IPIRANGA</strong>
+                    <span>R$ 160</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="tax-cell" data-position="7">
+                    <div class="cell-icon">💰</div>
+                    <strong>IMPOSTO</strong>
+                    <small>R$ 150</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+            </div>
+
+            <!-- LADO ESQUERDO -->
+            <div class="board-side board-left">
+
+                <div class="property-cell orange" data-position="39">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>CARIOCA</strong>
+                    <span>R$ 220</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell orange" data-position="38">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>OSCAR FREIRE</strong>
+                    <span>R$ 220</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="chance-cell" data-position="37">
+                    <div class="cell-icon">?</div>
+                    <strong>SORTE</strong>
+                    <span>OU REVÉS</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell red" data-position="36">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>ATLÂNTICA</strong>
+                    <span>R$ 260</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="station-cell" data-position="35">
+                    <div class="cell-icon">🚉</div>
+                    <strong>ESTAÇÃO</strong>
+                    <small>R$ 200</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell red" data-position="34">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>IPANEMA</strong>
+                    <span>R$ 240</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="tax-cell" data-position="33">
+                    <div class="cell-icon">💰</div>
+                    <strong>IMPOSTO</strong>
+                    <small>R$ 200</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+            </div>
+
+            <!-- LADO DIREITO -->
+            <div class="board-side board-right">
+
+                <div class="property-cell green" data-position="8">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>VILA NOVA</strong>
+                    <span>R$ 180</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell green" data-position="9">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>PAULISTA</strong>
+                    <span>R$ 200</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="chance-cell" data-position="10">
+                    <div class="cell-icon">?</div>
+                    <strong>SORTE</strong>
+                    <span>OU REVÉS</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell green" data-position="11">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>JARDINS</strong>
+                    <span>R$ 220</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="station-cell" data-position="12">
+                    <div class="cell-icon">🚉</div>
+                    <strong>ESTAÇÃO</strong>
+                    <small>R$ 200</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell yellow" data-position="13">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>BRIGADEIRO</strong>
+                    <span>R$ 240</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell yellow" data-position="14">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>FARIA LIMA</strong>
+                    <span>R$ 260</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+            </div>
+
+            <!-- BAIXO -->
+            <div class="board-side board-bottom">
+
+                <div class="corner-cell jail-cell" data-position="20">
+                    <div class="cell-icon">🚔</div>
+                    <strong>PRISÃO</strong>
+                    <small>VISITA</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell purple" data-position="19">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>MOEMA</strong>
+                    <span>R$ 300</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell purple" data-position="18">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>IBIRAPUERA</strong>
+                    <span>R$ 280</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="chance-cell" data-position="17">
+                    <div class="cell-icon">?</div>
+                    <strong>SORTE</strong>
+                    <span>OU REVÉS</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell purple" data-position="16">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>PINHEIROS</strong>
+                    <span>R$ 280</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="station-cell" data-position="15">
+                    <div class="cell-icon">🚉</div>
+                    <strong>ESTAÇÃO</strong>
+                    <small>R$ 200</small>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell dark-green" data-position="21">
+                    <div class="property-color"></div>
+                    <small>RUA</small>
+                    <strong>LEBLON</strong>
+                    <span>R$ 320</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+                <div class="property-cell dark-green" data-position="22">
+                    <div class="property-color"></div>
+                    <small>AVENIDA</small>
+                    <strong>IPANEMA</strong>
+                    <span>R$ 350</span>
+                    <div class="player-pieces"></div>
+                </div>
+
+            </div>
+
+            <!-- CENTRO -->
+            <div class="board-center">
+
+                <div class="center-city">
+
+                    <div class="city-crown">
+                        ♛
+                    </div>
+
+                    <h1>
+                        BANCO
+                        <span>IMOBILIÁRIO</span>
+                    </h1>
+
+                    <div class="center-line"></div>
+
+                    <p>
+                        MULTIPLAYER
+                    </p>
+
+                    <div class="center-symbols">
+                        <span>🏠</span>
+                        <span>💰</span>
+                        <span>🚉</span>
+                        <span>🎲</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ÁREA DOS DADOS -->
+        <div class="dice-area">
+
+            <div class="dice-platform">
+
+                <div class="die" id="die1">
+                    <div class="face">⚄</div>
+                </div>
+
+                <div class="die" id="die2">
+                    <div class="face">⚂</div>
+                </div>
+
+            </div>
+
+            <button
+                id="rollButton"
+                class="roll-button"
+                type="button"
+                onclick="rollDice()"
+            >
+                <span class="roll-icon">🎲</span>
+
+                <span>
+                    <small>SEU TURNO</small>
+                    ROLAR DADOS
+                </span>
+            </button>
+
+            <div
+                class="dice-result"
+                id="diceResult"
+            >
+                Clique para jogar
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- CHAT -->
+    <aside class="game-chat">
+
+        <div class="chat-header">
+            <span>💬</span>
+            <strong>CHAT DO JOGO</strong>
+        </div>
+
+        <div
+            class="chat-messages"
+            id="chatMessages"
+        >
+            <div class="chat-message system">
+                Você entrou na partida.
+            </div>
+        </div>
+
+        <div class="chat-input">
+
+            <input
+                id="chatInput"
+                type="text"
+                maxlength="100"
+                placeholder="Digite sua mensagem..."
+            >
+
+            <button
+                type="button"
+                onclick="sendChat()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+    </aside>
+
+</div>
+
+<!-- SOCKET.IO -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- JOGO -->
+<script src="../js/game.js"></script>
+
+</body>
+</html>

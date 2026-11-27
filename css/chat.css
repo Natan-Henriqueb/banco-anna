@@ -1,0 +1,79 @@
+/* =========================================================
+   CHAT.CSS
+   ========================================================= */
+
+.chat {
+    width: 320px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(5,15,28,.94);
+
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-large);
+}
+
+.chat-header {
+    padding: 15px;
+
+    color: var(--color-primary);
+
+    border-bottom: 1px solid var(--border-color);
+
+    font-weight: 800;
+}
+
+.chat-messages {
+    height: 300px;
+
+    padding: 15px;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-message {
+    padding: 9px 11px;
+
+    background: rgba(255,255,255,.05);
+
+    border-radius: 10px;
+
+    font-size: 13px;
+}
+
+.chat-message strong {
+    color: var(--color-primary);
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+
+    padding: 10px;
+
+    border-top: 1px solid var(--border-color);
+}
+
+.chat-input input {
+    padding: 10px;
+}
+
+.chat-input button {
+    width: 45px;
+
+    border-radius: 8px;
+
+    background: var(--color-primary);
+    color: #07111f;
+
+    font-weight: 900;
+}

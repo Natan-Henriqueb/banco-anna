@@ -1,0 +1,825 @@
+/* =========================================================
+   BANCO IMOBILIÁRIO
+   TABULEIRO PRINCIPAL
+========================================================= */
+
+.game-area {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 65px;
+
+    perspective: 1800px;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.game-logo {
+    position: relative;
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: -12px;
+
+    padding: 7px 28px 8px;
+
+    border: 1px solid #cda341;
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(9,17,29,.96),
+            rgba(18,31,47,.94)
+        );
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.55),
+        0 0 25px rgba(205,163,65,.15);
+}
+
+.logo-city {
+    font-size: 32px;
+
+    color: #e2b94f;
+
+    text-shadow:
+        0 0 15px rgba(226,185,79,.7);
+}
+
+.logo-title {
+    display: flex;
+    flex-direction: column;
+
+    font-family: Georgia, serif;
+
+    line-height: .85;
+}
+
+.logo-title strong {
+    color: #e5b84e;
+
+    font-size: 24px;
+
+    letter-spacing: 2px;
+}
+
+.logo-title span {
+    color: #f3eee0;
+
+    font-size: 25px;
+
+    letter-spacing: 1px;
+}
+
+.logo-subtitle {
+    color: #d9aa42;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    align-self: flex-end;
+}
+
+
+/* =========================================================
+   TABULEIRO
+========================================================= */
+
+.board {
+    position: relative;
+
+    width: min(78vw, 1050px);
+    height: min(78vw, 1050px);
+
+    min-width: 650px;
+    min-height: 650px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0a1c31,
+            #132a43 50%,
+            #091729
+        );
+
+    border: 3px solid #cda33e;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.75),
+        0 0 60px rgba(207,162,57,.15),
+        inset 0 0 70px rgba(0,0,0,.45);
+
+    transform: rotateX(2deg);
+
+    overflow: hidden;
+}
+
+.board::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    border-radius: inherit;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.12),
+        inset 0 0 80px rgba(212,165,55,.06);
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   LADOS
+========================================================= */
+
+.board-side {
+    position: absolute;
+
+    display: grid;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   TOPO E BAIXO
+========================================================= */
+
+.board-top,
+.board-bottom {
+
+    left: 0;
+    right: 0;
+
+    height: 18%;
+
+    grid-template-columns:
+        repeat(8, 1fr);
+
+    /* PEQUENO ESPAÇO ENTRE AS CASAS */
+    gap: 4px;
+
+    padding-left: 3px;
+    padding-right: 3px;
+
+    box-sizing: border-box;
+}
+
+.board-top {
+    top: 0;
+}
+
+.board-bottom {
+    bottom: 0;
+}
+
+
+/* =========================================================
+   LATERAIS
+========================================================= */
+
+.board-left,
+.board-right {
+
+    top: 18%;
+    bottom: 18%;
+
+    width: 14%;
+
+    grid-template-rows:
+        repeat(7, 1fr);
+
+    /* ESPAÇO ENTRE AS CASAS */
+    gap: 4px;
+
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    box-sizing: border-box;
+}
+
+.board-left {
+    left: 0;
+}
+
+.board-right {
+    right: 0;
+}
+
+
+/* =========================================================
+   CASAS
+========================================================= */
+
+.board-side > div {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border: 1px solid rgba(5,12,20,.85);
+
+    background:
+        linear-gradient(
+            145deg,
+            #eee5cc,
+            #cfc5aa
+        );
+
+    color: #111b27;
+
+    overflow: hidden;
+
+    transition:
+        transform .2s,
+        filter .2s,
+        box-shadow .2s;
+
+    box-sizing: border-box;
+}
+
+.board-side > div:hover {
+
+    z-index: 30;
+
+    filter: brightness(1.15);
+
+    box-shadow:
+        0 0 25px rgba(226,185,79,.55);
+}
+
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+.board-side strong {
+
+    font-size:
+        clamp(7px, .65vw, 11px);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    margin: 2px;
+}
+
+.board-side small {
+
+    font-size:
+        clamp(6px, .5vw, 8px);
+
+    font-weight: 700;
+}
+
+.board-side span {
+
+    font-size:
+        clamp(6px, .5vw, 8px);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   CORES DAS PROPRIEDADES
+========================================================= */
+
+.property-color {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 0;
+
+    height: 25%;
+
+    box-shadow:
+        inset 0 -2px 3px rgba(0,0,0,.3);
+}
+
+
+/* AZUL */
+
+.blue .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #0754c9,
+            #42a8ff
+        );
+}
+
+
+/* ROSA */
+
+.pink .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #bd1e8a,
+            #ff63cb
+        );
+}
+
+
+/* LARANJA */
+
+.orange .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #d44d09,
+            #ff9b3d
+        );
+}
+
+
+/* VERMELHO */
+
+.red .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #a90019,
+            #ff425c
+        );
+}
+
+
+/* AMARELO */
+
+.yellow .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #d5a800,
+            #ffe06a
+        );
+}
+
+
+/* VERDE */
+
+.green .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #087c48,
+            #45d58c
+        );
+}
+
+
+/* ROXO */
+
+.purple .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #6633bd,
+            #b889ff
+        );
+}
+
+
+/* VERDE ESCURO */
+
+.dark-green .property-color {
+
+    background:
+        linear-gradient(
+            90deg,
+            #045c42,
+            #18c69b
+        );
+}
+
+
+/* =========================================================
+   ÍCONES
+========================================================= */
+
+.cell-icon {
+
+    font-size:
+        clamp(14px, 1.3vw, 25px);
+
+    margin-bottom: 4px;
+}
+
+
+/* =========================================================
+   INÍCIO
+========================================================= */
+
+.start-cell {
+
+    background:
+        linear-gradient(
+            145deg,
+            #07182c,
+            #102d49
+        ) !important;
+
+    color:
+        #f5d77c !important;
+
+    border:
+        2px solid
+        #d7ad4d !important;
+}
+
+.start-cell .cell-icon {
+
+    font-size: 32px;
+}
+
+
+/* =========================================================
+   PRISÃO
+========================================================= */
+
+.jail-cell {
+
+    background:
+        linear-gradient(
+            145deg,
+            #17202b,
+            #263445
+        ) !important;
+
+    color: #eee !important;
+}
+
+
+/* =========================================================
+   SORTE
+========================================================= */
+
+.chance-cell {
+
+    background:
+        linear-gradient(
+            145deg,
+            #f3d879,
+            #c59b32
+        ) !important;
+}
+
+
+/* =========================================================
+   IMPOSTO
+========================================================= */
+
+.tax-cell {
+
+    background:
+        linear-gradient(
+            145deg,
+            #e8d4bb,
+            #bd9f7c
+        ) !important;
+}
+
+
+/* =========================================================
+   ESTAÇÃO
+========================================================= */
+
+.station-cell {
+
+    background:
+        linear-gradient(
+            145deg,
+            #e9e7dc,
+            #bbb9b0
+        ) !important;
+}
+
+
+/* =========================================================
+   CENTRO DO TABULEIRO
+========================================================= */
+
+.board-center {
+
+    position: absolute;
+
+    left: 14%;
+    right: 14%;
+
+    top: 18%;
+    bottom: 18%;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(29,66,99,.95),
+            rgba(8,22,38,.98)
+        );
+
+    border: 1px solid
+        rgba(207,164,64,.22);
+}
+
+.board-center::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 30px;
+
+    border:
+        1px solid
+        rgba(216,174,77,.2);
+
+    transform:
+        rotate(45deg);
+
+    box-shadow:
+        0 0 60px
+        rgba(210,164,52,.05);
+}
+
+.board-center::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+
+        linear-gradient(
+            35deg,
+            transparent 47%,
+            rgba(83,137,183,.12) 48%,
+            transparent 49%
+        ),
+
+        linear-gradient(
+            125deg,
+            transparent 47%,
+            rgba(83,137,183,.12) 48%,
+            transparent 49%
+        );
+
+    background-size:
+        70px 70px;
+
+    opacity: .5;
+}
+
+
+/* =========================================================
+   LOGO CENTRAL
+========================================================= */
+
+.center-city {
+
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+
+    padding:
+        50px 80px;
+
+    border:
+        1px solid
+        rgba(214,171,66,.28);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(19,47,72,.9),
+            rgba(4,14,25,.6)
+        );
+
+    box-shadow:
+        0 0 50px rgba(0,0,0,.4),
+        inset 0 0 40px
+        rgba(211,164,58,.04);
+}
+
+.city-crown {
+
+    font-size: 45px;
+
+    color: #dcb34f;
+
+    text-shadow:
+        0 0 25px
+        rgba(220,179,79,.5);
+}
+
+.center-city h1 {
+
+    margin: 5px 0;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            24px,
+            3vw,
+            48px
+        );
+
+    color: #e8b84c;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 3px 10px #000;
+}
+
+.center-city h1 span {
+
+    display: block;
+
+    color: #eee8d7;
+
+    font-size: .8em;
+}
+
+.center-line {
+
+    width: 170px;
+
+    height: 1px;
+
+    margin:
+        14px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d8ad45,
+            transparent
+        );
+}
+
+.center-city p {
+
+    color: #d4aa4b;
+
+    font-size: 11px;
+
+    letter-spacing: 6px;
+}
+
+.center-symbols {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    margin-top: 22px;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   PEÇAS DOS JOGADORES
+========================================================= */
+
+.player-pieces {
+
+    position: absolute;
+
+    bottom: 4px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    gap: 2px;
+
+    z-index: 50;
+}
+
+.player-piece {
+
+    width: 15px;
+    height: 23px;
+
+    position: relative;
+
+    border-radius:
+        50% 50% 35% 35%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffdf63,
+            #b87908
+        );
+
+    border:
+        1px solid
+        #fff1a8;
+
+    box-shadow:
+        0 3px 8px
+        rgba(0,0,0,.6),
+
+        0 0 10px
+        rgba(255,211,77,.4);
+
+    animation:
+        pieceBounce
+        1.4s
+        infinite
+        ease-in-out;
+}
+
+.player-piece::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 9px;
+    height: 9px;
+
+    left: 50%;
+    top: -6px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background: inherit;
+
+    border: inherit;
+}
+
+@keyframes pieceBounce {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px);
+    }
+}

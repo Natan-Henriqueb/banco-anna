@@ -1,0 +1,97 @@
+/* =========================================================
+   AUCTION.CSS
+   ========================================================= */
+
+.auction {
+    padding: 25px;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-large);
+
+    box-shadow: var(--shadow-large);
+}
+
+.auction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.auction-header h2 {
+    color: var(--color-primary);
+}
+
+.auction-timer {
+    min-width: 65px;
+
+    padding: 8px 12px;
+
+    text-align: center;
+
+    border-radius: 8px;
+
+    background: rgba(237,83,100,.12);
+    color: var(--color-danger);
+
+    font-weight: 900;
+}
+
+.auction-property {
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.035);
+}
+
+.bid-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.bid-item {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px 12px;
+
+    background: rgba(255,255,255,.04);
+    border-radius: 8px;
+}
+
+.bid-value {
+    color: var(--color-success);
+    font-weight: 800;
+}
+
+.bid-controls {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.bid-controls input {
+    padding: 12px;
+}
+
+.bid-button {
+    padding: 12px 20px;
+
+    border-radius: 9px;
+
+    background: var(--color-primary);
+    color: #07111f;
+
+    font-weight: 800;
+}

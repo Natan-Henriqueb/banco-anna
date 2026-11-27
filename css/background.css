@@ -1,0 +1,320 @@
+/* =========================================================
+   FUNDO PRINCIPAL
+   ========================================================= */
+
+.background {
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(25,48,74,.55),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(196,151,43,.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(196,151,43,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #020811,
+            #071525 50%,
+            #020811
+        );
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   LUZES
+   ========================================================= */
+
+.bg-light {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(110px);
+
+    pointer-events: none;
+
+    opacity: .14;
+
+    animation:
+        lightMove 12s ease-in-out infinite alternate;
+}
+
+
+.bg-light-1 {
+    top: -260px;
+    left: -170px;
+
+    background: #c69a32;
+}
+
+
+.bg-light-2 {
+    right: -250px;
+    bottom: -250px;
+
+    background: #16466e;
+
+    animation-delay: -4s;
+}
+
+
+.bg-light-3 {
+    top: 45%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 650px;
+    height: 650px;
+
+    background: #28527a;
+
+    opacity: .07;
+
+    animation-delay: -7s;
+}
+
+
+@keyframes lightMove {
+
+    0% {
+        transform: translate(0,0) scale(1);
+    }
+
+    100% {
+        transform: translate(35px,-25px) scale(1.1);
+    }
+}
+
+
+/* =========================================================
+   GRADE DISCRETA
+   ========================================================= */
+
+.background::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    opacity: .7;
+
+    pointer-events: none;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 20%,
+            black 80%,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   PARTÍCULAS DOURADAS
+   ========================================================= */
+
+.particles {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+.particles span {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #e0b53f;
+
+    box-shadow:
+        0 0 8px rgba(228,184,60,.8);
+
+    opacity: 0;
+
+    animation:
+        particleFloat
+        linear
+        infinite;
+}
+
+
+/* posições */
+
+.particles span:nth-child(1) {
+    left: 8%;
+    top: 75%;
+    animation-duration: 9s;
+}
+
+.particles span:nth-child(2) {
+    left: 15%;
+    top: 35%;
+    animation-duration: 12s;
+    animation-delay: 2s;
+}
+
+.particles span:nth-child(3) {
+    left: 23%;
+    top: 85%;
+    animation-duration: 10s;
+    animation-delay: 4s;
+}
+
+.particles span:nth-child(4) {
+    left: 31%;
+    top: 20%;
+    animation-duration: 13s;
+    animation-delay: 1s;
+}
+
+.particles span:nth-child(5) {
+    left: 40%;
+    top: 70%;
+    animation-duration: 11s;
+    animation-delay: 3s;
+}
+
+.particles span:nth-child(6) {
+    left: 49%;
+    top: 15%;
+    animation-duration: 10s;
+    animation-delay: 5s;
+}
+
+.particles span:nth-child(7) {
+    left: 58%;
+    top: 82%;
+    animation-duration: 14s;
+}
+
+.particles span:nth-child(8) {
+    left: 65%;
+    top: 30%;
+    animation-duration: 9s;
+    animation-delay: 3s;
+}
+
+.particles span:nth-child(9) {
+    left: 73%;
+    top: 72%;
+    animation-duration: 12s;
+    animation-delay: 1s;
+}
+
+.particles span:nth-child(10) {
+    left: 82%;
+    top: 18%;
+    animation-duration: 11s;
+    animation-delay: 4s;
+}
+
+.particles span:nth-child(11) {
+    left: 91%;
+    top: 58%;
+    animation-duration: 13s;
+}
+
+.particles span:nth-child(12) {
+    left: 12%;
+    top: 55%;
+    animation-duration: 15s;
+    animation-delay: 2s;
+}
+
+.particles span:nth-child(13) {
+    left: 35%;
+    top: 45%;
+    animation-duration: 10s;
+    animation-delay: 4s;
+}
+
+.particles span:nth-child(14) {
+    left: 70%;
+    top: 50%;
+    animation-duration: 14s;
+    animation-delay: 1s;
+}
+
+.particles span:nth-child(15) {
+    left: 88%;
+    top: 82%;
+    animation-duration: 12s;
+    animation-delay: 5s;
+}
+
+.particles span:nth-child(16) {
+    left: 55%;
+    top: 92%;
+    animation-duration: 9s;
+    animation-delay: 2s;
+}
+
+
+@keyframes particleFloat {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.5);
+    }
+
+    20% {
+        opacity: .7;
+    }
+
+    70% {
+        opacity: .35;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(-130px)
+            scale(1.2);
+    }
+}

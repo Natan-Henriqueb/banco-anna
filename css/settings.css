@@ -1,0 +1,116 @@
+/* =========================================================
+   SETTINGS.CSS
+   ========================================================= */
+
+.settings {
+    min-height: 100vh;
+    padding: 35px;
+
+    position: relative;
+    z-index: 10;
+}
+
+.settings-container {
+    width: min(950px, 100%);
+    margin: auto;
+}
+
+.settings-header {
+    margin-bottom: 25px;
+}
+
+.settings-header h1 {
+    color: var(--color-primary);
+    font-family: var(--font-title);
+    font-size: 36px;
+}
+
+.settings-section {
+    margin-bottom: 20px;
+    padding: 25px;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-large);
+
+    box-shadow: var(--shadow-medium);
+}
+
+.settings-section h2 {
+    margin-bottom: 20px;
+    color: var(--color-primary);
+    font-size: 19px;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-label strong {
+    display: block;
+}
+
+.setting-label span {
+    color: var(--color-text-muted);
+    font-size: 12px;
+}
+
+.setting-control {
+    min-width: 180px;
+}
+
+.setting-control select,
+.setting-control input {
+    padding: 11px 13px;
+}
+
+.toggle {
+    width: 52px;
+    height: 28px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.12);
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+.toggle::after {
+    content: "";
+
+    position: absolute;
+
+    top: 4px;
+    left: 4px;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    transition: var(--transition-normal);
+}
+
+.toggle.active {
+    background: var(--color-primary);
+}
+
+.toggle.active::after {
+    transform: translateX(24px);
+}

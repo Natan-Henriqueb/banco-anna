@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="Banco Imobiliário — jogo de tabuleiro multiplayer online.">
+  <title>Banco Imobiliário — Multiplayer</title>
+
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/background.css">
+  <link rel="stylesheet" href="/css/menu.css">
+  <link rel="stylesheet" href="/css/animations.css">
+
+  <style>
+    .menu-page {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: #08090d;
+    }
+
+    .home-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 34px;
+      border-bottom: 1px solid #ffffff10;
+      background: #08090dcc;
+      backdrop-filter: blur(14px);
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      letter-spacing: 2px;
+    }
+
+    .brand-mini span {
+      color: #d9b45b;
+      font-size: 12px;
+    }
+
+    .brand-mini strong {
+      color: #fff;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .top-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .top-nav button,
+    .quick-menu button {
+      border: 1px solid #303846;
+      background: #11151d;
+      color: #dfe3ea;
+      padding: 9px 13px;
+      border-radius: 8px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      transition: .2s;
+      cursor: pointer;
+    }
+
+    .top-nav button:hover,
+    .quick-menu button:hover {
+      border-color: #d9b45b;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .home {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, 94vw);
+      min-height: calc(100vh - 125px);
+      margin: 0 auto;
+      padding: 54px 0 30px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .hero-copy .eyebrow {
+      display: block;
+      color: #d9b45b;
+      font-size: 11px;
+      letter-spacing: 5px;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(58px, 8vw, 96px);
+      line-height: .82;
+      margin: 0;
+      color: #fff;
+      letter-spacing: -3px;
+    }
+
+    .hero-copy h1 b {
+      color: #d9b45b;
+      font-weight: 500;
+    }
+
+    .gold-line {
+      display: block;
+      width: 190px;
+      height: 1px;
+      margin: 26px 0 16px;
+      background: linear-gradient(90deg, #d9b45b, transparent);
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: #8d95a3;
+      letter-spacing: 1px;
+      font-size: 14px;
+    }
+
+    .player-access {
+      margin-top: 38px;
+      width: min(570px, 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .player-access .field {
+      background: #0d1016dd;
+      border: 1px solid #ffffff12;
+      border-radius: 12px;
+      padding: 14px;
+      backdrop-filter: blur(12px);
+    }
+
+    .player-access .field label {
+      display: block;
+      font-size: 10px;
+      color: #8d95a3;
+      letter-spacing: 1.5px;
+      margin-bottom: 7px;
+    }
+
+    .player-access input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .player-access input::placeholder {
+      color: #555d69;
+    }
+
+    .main-actions {
+      background: #0d1016e8;
+      border: 1px solid #ffffff12;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 30px 90px #0008;
+      backdrop-filter: blur(18px);
+    }
+
+    .action {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      border: 1px solid #303846;
+      background: #171c25;
+      color: #fff;
+      border-radius: 11px;
+      padding: 16px 18px;
+      margin-bottom: 9px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .action:hover {
+      border-color: #d9b45b;
+      transform: translateY(-2px);
+      box-shadow: 0 9px 28px #0007;
+    }
+
+    .action-primary {
+      background: linear-gradient(135deg, #d9b45b, #9d772c);
+      border-color: transparent;
+      color: #111;
+    }
+
+    .action-title {
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+    }
+
+    .action-sub {
+      font-size: 10px;
+      color: #8d95a3;
+      margin-top: 5px;
+      letter-spacing: .5px;
+    }
+
+    .action-primary .action-sub {
+      color: #33280f;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .action-row .action {
+      margin: 0;
+    }
+
+    .action.small {
+      padding: 14px;
+    }
+
+    .quick-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      grid-column: 1/-1;
+      justify-content: center;
+    }
+
+    .quick-menu button {
+      background: #0d1016d9;
+    }
+
+    .status-strip {
+      grid-column: 1/-1;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      color: #707987;
+      font-size: 9px;
+      letter-spacing: 1.4px;
+    }
+
+    .online-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #39d98a;
+      box-shadow: 0 0 10px #39d98a;
+      margin-right: 6px;
+    }
+
+    .home-footer {
+      text-align: center;
+      color: #555e6b;
+      font-size: 9px;
+      letter-spacing: 2px;
+      padding: 0 0 22px;
+    }
+
+    .home-footer span {
+      color: #777f8b;
+    }
+
+    @media(max-width:850px) {
+      .home-header {
+        padding: 18px 20px;
+      }
+
+      .top-nav {
+        display: none;
+      }
+
+      .home {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-top: 38px;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .gold-line {
+        margin: 24px auto 16px;
+      }
+
+      .player-access {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .main-actions {
+        width: min(560px, 100%);
+        margin: auto;
+      }
+
+      .quick-menu {
+        order: 4;
+      }
+
+      .status-strip {
+        order: 5;
+      }
+    }
+
+    @media(max-width:520px) {
+      .home {
+        width: 92vw;
+        padding-top: 30px;
+      }
+
+      .hero-copy h1 {
+        font-size: 56px;
+      }
+
+      .player-access {
+        grid-template-columns: 1fr;
+      }
+
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .status-strip {
+        gap: 10px 16px;
+      }
+
+      .home-header {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body class="menu-page">
+
+  <div class="ambient"></div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header class="home-header">
+
+    <div class="brand-mini">
+      <span>BANCO</span>
+      <strong>IMOBILIÁRIO</strong>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegação principal">
+      <button type="button" onclick="go('/pages/profile.html')">
+        PERFIL
+      </button>
+
+      <button type="button" onclick="go('/pages/shop.html')">
+        LOJA
+      </button>
+
+      <button type="button" onclick="go('/pages/settings.html')">
+        CONFIGURAÇÕES
+      </button>
+    </nav>
+
+  </header>
+
+  <main class="home">
+
+    <section class="hero">
+
+      <div class="hero-copy">
+
+        <span class="eyebrow">
+          THE ROYAL EDITION • ONLINE
+        </span>
+
+        <h1>
+          BANCO<br>
+          <b>IMOBILIÁRIO</b>
+        </h1>
+
+        <span class="gold-line"></span>
+
+        <p>
+          Mais do que um jogo, é um negócio de verdade.
+        </p>
+
+      </div>
+
+      <section class="player-access" aria-label="Identificação do jogador">
+
+        <div class="field">
+
+          <label for="playerName">
+            NOME DO JOGADOR
+          </label>
+
+          <input
+            id="playerName"
+            type="text"
+            maxlength="20"
+            autocomplete="nickname"
+            placeholder="Digite seu nome"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label for="roomCode">
+            CÓDIGO DA SALA
+          </label>
+
+          <input
+            id="roomCode"
+            type="text"
+            maxlength="5"
+            autocomplete="off"
+            placeholder="Ex.: A7K2P"
+            style="text-transform:uppercase"
+          >
+
+        </div>
+
+      </section>
+
+    </section>
+
+    <section class="main-actions" aria-label="Partidas">
+
+      <button
+        class="action action-primary"
+        type="button"
+        onclick="createGame()"
+      >
+
+        <span class="action-title">
+          JOGAR ONLINE
+        </span>
+
+        <span class="action-sub">
+          Criar uma nova partida
+        </span>
+
+      </button>
+
+      <button
+        class="action"
+        type="button"
+        onclick="freeGame()"
+      >
+
+        <span class="action-title">
+          PARTIDA LIVRE
+        </span>
+
+        <span class="action-sub">
+          Começar uma sala rapidamente
+        </span>
+
+      </button>
+
+      <div class="action-row">
+
+        <button
+          class="action small"
+          type="button"
+          onclick="createGame()"
+        >
+
+          <span class="action-title">
+            CRIAR PARTIDA
+          </span>
+
+          <span class="action-sub">
+            Configurar uma sala
+          </span>
+
+        </button>
+
+        <button
+          class="action small"
+          type="button"
+          onclick="joinGame()"
+        >
+
+          <span class="action-title">
+            ENTRAR EM PARTIDA
+          </span>
+
+          <span class="action-sub">
+            Usar código da sala
+          </span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <aside class="quick-menu" aria-label="Menu do jogo">
+
+      <button type="button" onclick="go('/pages/profile.html')">
+        PERFIL
+      </button>
+
+      <button type="button" onclick="go('/pages/shop.html')">
+        LOJA
+      </button>
+
+      <button type="button" onclick="go('/pages/settings.html')">
+        CONFIGURAÇÕES
+      </button>
+
+      <button type="button" onclick="go('/pages/tutorial.html')">
+        COMO JOGAR
+      </button>
+
+      <button type="button" onclick="go('/pages/credits.html')">
+        CRÉDITOS
+      </button>
+
+    </aside>
+
+    <section class="status-strip">
+
+      <span>
+        <i class="online-dot"></i>
+        SERVIDOR ONLINE
+      </span>
+
+      <span>
+        MULTIPLAYER
+      </span>
+
+      <span>
+        SALAS PRIVADAS
+      </span>
+
+      <span>
+        PARTIDAS SINCRONIZADAS
+      </span>
+
+    </section>
+
+  </main>
+
+  <footer class="home-footer">
+
+    BANCO IMOBILIÁRIO • MULTIPLAYER •
+    <span id="year"></span>
+
+  </footer>
+
+  <script>
+
+    (() => {
+
+      /* =========================
+         PARTÍCULAS
+      ========================= */
+
+      const particles =
+        document.getElementById('particles');
+
+      if (particles) {
+
+        for (let i = 0; i < 55; i++) {
+
+          const p =
+            document.createElement('i');
+
+          p.className = 'particle';
+
+          p.style.left =
+            (Math.random() * 100) + '%';
+
+          p.style.animationDuration =
+            (8 + Math.random() * 18) + 's';
+
+          p.style.animationDelay =
+            (-Math.random() * 18) + 's';
+
+          particles.appendChild(p);
+        }
+      }
+
+
+      /* =========================
+         ELEMENTOS
+      ========================= */
+
+      const playerNameInput =
+        document.getElementById('playerName');
+
+      const roomCodeInput =
+        document.getElementById('roomCode');
+
+
+      /* =========================
+         NOME SALVO
+      ========================= */
+
+      const savedName =
+        sessionStorage.getItem('playerName') ||
+        localStorage.getItem('playerName');
+
+      if (savedName && playerNameInput) {
+
+        playerNameInput.value =
+          savedName;
+      }
+
+
+      /* =========================
+         ANO
+      ========================= */
+
+      const year =
+        document.getElementById('year');
+
+      if (year) {
+
+        year.textContent =
+          new Date().getFullYear();
+      }
+
+
+      /* =========================
+         SALVAR NOME
+      ========================= */
+
+      function savePlayerName() {
+
+        const input =
+          document.getElementById('playerName');
+
+        const name =
+          input ? input.value.trim() : '';
+
+        if (name) {
+
+          sessionStorage.setItem(
+            'playerName',
+            name
+          );
+
+          localStorage.setItem(
+            'playerName',
+            name
+          );
+        }
+
+        return name;
+      }
+
+
+      /* =========================
+         NAVEGAÇÃO GERAL
+      ========================= */
+
+      window.go = function(url) {
+
+        savePlayerName();
+
+        window.location.assign(url);
+      };
+
+
+      /* =========================
+         CRIAR NOVA SALA
+      ========================= */
+
+      window.createGame = function() {
+
+        const name =
+          savePlayerName();
+
+        if (!name) {
+
+          alert(
+            'Digite seu nome antes de criar uma partida.'
+          );
+
+          if (playerNameInput) {
+            playerNameInput.focus();
+          }
+
+          return;
+        }
+
+        /*
+         * Caminho relativo:
+         * index.html
+         * └── pages
+         *     └── create-room.html
+         */
+
+        window.location.assign(
+          './pages/create-room.html'
+        );
+      };
+
+
+      /* =========================
+         PARTIDA LIVRE
+      ========================= */
+
+      window.freeGame = function() {
+
+        const name =
+          savePlayerName();
+
+        if (!name) {
+
+          alert(
+            'Digite seu nome antes de começar a partida.'
+          );
+
+          if (playerNameInput) {
+            playerNameInput.focus();
+          }
+
+          return;
+        }
+
+        window.location.assign(
+          './pages/create-room.html'
+        );
+      };
+
+
+      /* =========================
+         ENTRAR EM SALA
+      ========================= */
+
+      window.joinGame = function() {
+
+        const name =
+          savePlayerName();
+
+        const code =
+          roomCodeInput
+            ? roomCodeInput.value
+                .trim()
+                .toUpperCase()
+            : '';
+
+        if (!name) {
+
+          alert(
+            'Digite seu nome antes de entrar na partida.'
+          );
+
+          if (playerNameInput) {
+            playerNameInput.focus();
+          }
+
+          return;
+        }
+
+        if (!code) {
+
+          alert(
+            'Digite o código da sala.'
+          );
+
+          if (roomCodeInput) {
+            roomCodeInput.focus();
+          }
+
+          return;
+        }
+
+        sessionStorage.setItem(
+          'roomCode',
+          code
+        );
+
+        window.location.assign(
+          './pages/join-room.html'
+        );
+      };
+
+
+      /* =========================
+         CÓDIGO DA SALA
+      ========================= */
+
+      if (roomCodeInput) {
+
+        roomCodeInput.addEventListener(
+          'input',
+          event => {
+
+            event.target.value =
+              event.target.value
+                .toUpperCase()
+                .replace(/[^A-Z0-9]/g, '')
+                .slice(0, 5);
+
+          }
+        );
+      }
+
+
+      /* =========================
+         ENTER
+      ========================= */
+
+      document.addEventListener(
+        'keydown',
+        event => {
+
+          if (event.key !== 'Enter') {
+            return;
+          }
+
+          const active =
+            document.activeElement;
+
+          if (
+            active === roomCodeInput
+          ) {
+
+            joinGame();
+
+          } else if (
+            active === playerNameInput
+          ) {
+
+            createGame();
+          }
+
+        }
+      );
+
+    })();
+
+  </script>
+
+</body>
+</html>

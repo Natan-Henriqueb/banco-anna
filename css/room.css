@@ -1,0 +1,1151 @@
+/* =========================================================
+   BANCO IMOBILIÁRIO
+   SALAS MULTIPLAYER
+========================================================= */
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   MUNDO
+========================================================= */
+
+.room-world {
+
+    position: relative;
+
+    width: 100vw;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 45%,
+            #173650 0%,
+            #091727 42%,
+            #020812 100%
+        );
+
+}
+
+
+/* =========================================================
+   CIDADE
+========================================================= */
+
+.room-city {
+
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: 0;
+
+    opacity: .85;
+
+}
+
+
+.room-building {
+
+    position: absolute;
+
+    bottom: 0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #050e18,
+            #13283d,
+            #07111d
+        );
+
+    border-top:
+        1px solid
+        rgba(213,168,61,.28);
+
+    box-shadow:
+        inset 0 0 50px
+        rgba(0,0,0,.7);
+
+}
+
+
+.room-building::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 10px;
+
+    background-image:
+
+        linear-gradient(
+            rgba(214,168,63,.55) 2px,
+            transparent 2px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(214,168,63,.55) 2px,
+            transparent 2px
+        );
+
+    background-size:
+        22px 28px,
+        22px 28px;
+
+    opacity: .28;
+
+}
+
+
+.rb1 {
+
+    left: 0;
+
+    width: 17vw;
+
+    height: 42vh;
+
+}
+
+.rb2 {
+
+    left: 16%;
+
+    width: 13vw;
+
+    height: 64vh;
+
+}
+
+.rb3 {
+
+    left: 32%;
+
+    width: 11vw;
+
+    height: 35vh;
+
+}
+
+.rb4 {
+
+    right: 18%;
+
+    width: 14vw;
+
+    height: 58vh;
+
+}
+
+.rb5 {
+
+    right: 0;
+
+    width: 17vw;
+
+    height: 40vh;
+
+}
+
+
+/* =========================================================
+   LUZES
+========================================================= */
+
+.room-light {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(50px);
+
+}
+
+
+.light-one {
+
+    width: 450px;
+
+    height: 450px;
+
+    left: 50%;
+
+    top: 5%;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        rgba(213,166,58,.08);
+
+}
+
+
+.light-two {
+
+    width: 350px;
+
+    height: 350px;
+
+    right: 5%;
+
+    bottom: 0;
+
+    background:
+        rgba(38,113,174,.08);
+
+}
+
+
+/* =========================================================
+   PARTÍCULAS
+========================================================= */
+
+.room-particles {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
+
+
+.room-particles span {
+
+    position: absolute;
+
+    width: 3px;
+
+    height: 3px;
+
+    border-radius: 50%;
+
+    background:
+        #d8ae52;
+
+    box-shadow:
+        0 0 12px
+        #d8ae52;
+
+    opacity: .6;
+
+    animation:
+        roomParticle
+        8s
+        infinite
+        ease-in-out;
+
+}
+
+
+.room-particles span:nth-child(1) {
+    left: 10%;
+    top: 20%;
+}
+
+.room-particles span:nth-child(2) {
+    left: 20%;
+    top: 65%;
+}
+
+.room-particles span:nth-child(3) {
+    left: 32%;
+    top: 15%;
+}
+
+.room-particles span:nth-child(4) {
+    left: 43%;
+    top: 80%;
+}
+
+.room-particles span:nth-child(5) {
+    left: 60%;
+    top: 18%;
+}
+
+.room-particles span:nth-child(6) {
+    left: 73%;
+    top: 67%;
+}
+
+.room-particles span:nth-child(7) {
+    left: 85%;
+    top: 25%;
+}
+
+.room-particles span:nth-child(8) {
+    left: 92%;
+    top: 55%;
+}
+
+
+@keyframes roomParticle {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+        opacity: .15;
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-35px);
+
+        opacity: .8;
+
+    }
+
+}
+
+
+/* =========================================================
+   DADOS FLUTUANTES
+========================================================= */
+
+.room-floating-dice {
+
+    position: absolute;
+
+    z-index: 3;
+
+    width: 65px;
+
+    height: 65px;
+
+    display: grid;
+
+    place-items: center;
+
+    border:
+        2px solid
+        #c99c35;
+
+    border-radius: 15px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #202428,
+            #070a0d
+        );
+
+    color:
+        #f0ce69;
+
+    font-size: 38px;
+
+    box-shadow:
+
+        0 15px 40px
+        rgba(0,0,0,.55),
+
+        0 0 25px
+        rgba(212,165,55,.16);
+
+    animation:
+        roomDiceFloat
+        6s
+        infinite
+        ease-in-out;
+
+}
+
+
+.dice-a {
+
+    left: 23%;
+
+    top: 15%;
+
+    transform:
+        rotate(-13deg);
+
+}
+
+
+.dice-b {
+
+    right: 22%;
+
+    top: 18%;
+
+    transform:
+        rotate(16deg);
+
+    animation-delay:
+        1.5s;
+
+}
+
+
+@keyframes roomDiceFloat {
+
+    0%,
+    100% {
+
+        margin-top: 0;
+
+    }
+
+    50% {
+
+        margin-top: -20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.room-container {
+
+    position: relative;
+
+    z-index: 10;
+
+    width: min(
+        460px,
+        92vw
+    );
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.room-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    margin-bottom: -18px;
+
+    padding:
+        10px 30px 14px;
+
+    min-width: 260px;
+
+    border:
+        1px solid
+        #cda341;
+
+    border-radius: 17px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(7,18,31,.98),
+            rgba(18,35,52,.96)
+        );
+
+    box-shadow:
+
+        0 18px 45px
+        rgba(0,0,0,.55),
+
+        0 0 25px
+        rgba(205,163,65,.13);
+
+}
+
+
+.room-crown {
+
+    font-size: 38px;
+
+    color:
+        #dfb54e;
+
+    text-shadow:
+        0 0 18px
+        rgba(223,181,78,.55);
+
+}
+
+
+.room-logo-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    font-family:
+        Georgia,
+        serif;
+
+    line-height: .85;
+
+}
+
+
+.room-logo-text strong {
+
+    color:
+        #e5b84e;
+
+    font-size: 24px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.room-logo-text span {
+
+    color:
+        #f1ebdc;
+
+    font-size: 25px;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================================
+   PAINEL
+========================================================= */
+
+.room-panel {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding:
+        45px 42px 30px;
+
+    border:
+        1px solid
+        rgba(211,166,61,.7);
+
+    border-radius: 22px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(7,18,31,.98),
+            rgba(13,31,48,.97)
+        );
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(0,0,0,.72),
+
+        0 0 45px
+        rgba(210,163,55,.09),
+
+        inset 0 0 50px
+        rgba(0,0,0,.3);
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.room-panel-header {
+
+    text-align: center;
+
+    margin-bottom: 28px;
+
+}
+
+
+.room-panel-header > span {
+
+    color:
+        #d6aa46;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    font-weight: 800;
+
+}
+
+
+.room-panel-header h1 {
+
+    margin:
+        7px 0 6px;
+
+    font-family:
+        Georgia,
+        serif;
+
+    color:
+        #f0dfaa;
+
+    font-size: 31px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.room-panel-header p {
+
+    margin: 0;
+
+    color:
+        #7f91a4;
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+.room-field {
+
+    margin-bottom: 16px;
+
+}
+
+
+.room-field label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color:
+        #c5a04c;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.room-field input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    height: 47px;
+
+    padding:
+        0 15px;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(203,158,52,.42);
+
+    border-radius: 10px;
+
+    background:
+        rgba(2,10,19,.72);
+
+    color:
+        #f2e7c9;
+
+    font-size: 13px;
+
+    transition:
+        border .2s,
+        box-shadow .2s,
+        background .2s;
+
+}
+
+
+.room-field input::placeholder {
+
+    color:
+        #536477;
+
+}
+
+
+.room-field input:focus {
+
+    border-color:
+        #d9ae4d;
+
+    background:
+        rgba(7,20,33,.9);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(217,174,77,.08),
+
+        0 0 20px
+        rgba(217,174,77,.1);
+
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.room-main-button {
+
+    width: 100%;
+
+    min-height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        10px 16px;
+
+    border:
+        1px solid
+        #b98a2e;
+
+    border-radius: 12px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #102a43,
+            #183b5b
+        );
+
+    color:
+        #f2df9e;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        filter .2s;
+
+}
+
+
+.room-main-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.12);
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(0,0,0,.45),
+
+        0 0 25px
+        rgba(214,168,63,.15);
+
+}
+
+
+.room-main-button:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.room-button-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(216,173,73,.12);
+
+    color:
+        #e3bc5c;
+
+    font-size: 22px;
+
+}
+
+
+.room-main-button strong {
+
+    display: block;
+
+    color:
+        #f2df9e;
+
+    font-size: 12px;
+
+    letter-spacing: .5px;
+
+}
+
+
+.room-main-button small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color:
+        #8293a5;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   BOTÃO SECUNDÁRIO
+========================================================= */
+
+.room-main-button.secondary {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(10,23,38,.96),
+            rgba(14,32,49,.96)
+        );
+
+}
+
+
+/* =========================================================
+   DIVISOR
+========================================================= */
+
+.room-divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        19px 0;
+
+}
+
+
+.room-divider i {
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(208,164,57,.3)
+        );
+
+}
+
+
+.room-divider i:last-child {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(208,164,57,.3),
+            transparent
+        );
+
+}
+
+
+.room-divider span {
+
+    color:
+        #6d7c8b;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.room-status {
+
+    min-height: 18px;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    color:
+        #d7b55d;
+
+    font-size: 10px;
+
+}
+
+
+.room-status.error {
+
+    color:
+        #ff6878;
+
+}
+
+
+/* =========================================================
+   VOLTAR
+========================================================= */
+
+.room-back {
+
+    display: block;
+
+    margin:
+        18px auto 0;
+
+    padding: 5px 10px;
+
+    border: 0;
+
+    background: transparent;
+
+    color:
+        #77899a;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    transition:
+        color .2s;
+
+}
+
+
+.room-back:hover {
+
+    color:
+        #d8b65d;
+
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.room-footer {
+
+    margin-top: 16px;
+
+    color:
+        #647588;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.room-footer span {
+
+    color:
+        #d4a943;
+
+}
+
+
+.room-footer b {
+
+    margin:
+        0 5px;
+
+    color:
+        #9c7830;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .room-panel {
+
+        padding:
+            40px 22px 25px;
+
+    }
+
+    .room-logo {
+
+        transform:
+            scale(.9);
+
+    }
+
+    .room-panel-header h1 {
+
+        font-size: 26px;
+
+    }
+
+    .room-floating-dice {
+
+        display: none;
+
+    }
+
+}
+
+
+@media (max-height: 760px) {
+
+    .room-panel {
+
+        padding:
+            34px 38px 20px;
+
+    }
+
+    .room-panel-header {
+
+        margin-bottom: 18px;
+
+    }
+
+    .room-panel-header h1 {
+
+        margin:
+            4px 0;
+
+        font-size: 26px;
+
+    }
+
+    .room-field {
+
+        margin-bottom: 11px;
+
+    }
+
+    .room-field input {
+
+        height: 42px;
+
+    }
+
+    .room-main-button {
+
+        min-height: 56px;
+
+    }
+
+    .room-logo {
+
+        transform:
+            scale(.85);
+
+        margin-bottom:
+            -25px;
+
+    }
+
+}

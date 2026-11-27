@@ -1,0 +1,182 @@
+/* =========================================================
+   BANCO IMOBILIÁRIO
+   GLOBAL.CSS
+   ========================================================= */
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(27, 108, 168, 0.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(212, 175, 55, 0.08),
+            transparent 35%
+        ),
+        var(--color-bg);
+
+    color: var(--color-text);
+    font-family: var(--font-main);
+
+    overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+.page {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+.container {
+    width: min(1400px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* BOTÕES */
+
+button {
+    font-family: var(--font-main);
+    color: var(--color-text);
+    background: none;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea {
+    width: 100%;
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-medium);
+    transition: var(--transition-normal);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+
+/* SELEÇÃO */
+
+::selection {
+    background: rgba(212, 175, 55, 0.35);
+    color: white;
+}
+
+/* LINKS */
+
+a {
+    transition: var(--transition-normal);
+}
+
+/* CARDS GENÉRICOS */
+
+.card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-medium);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+/* TÍTULOS */
+
+.title {
+    color: var(--color-white);
+    font-family: var(--font-title);
+}
+
+.gold {
+    color: var(--color-primary);
+}
+
+.muted {
+    color: var(--color-text-muted);
+}
+
+/* LOADING */
+
+.loading {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-bg-dark);
+}
+
+/* UTILITÁRIOS */
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-small {
+    gap: 8px;
+}
+
+.gap-medium {
+    gap: 16px;
+}
+
+.gap-large {
+    gap: 24px;
+}

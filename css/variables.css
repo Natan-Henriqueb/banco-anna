@@ -1,0 +1,85 @@
+/* =========================================================
+   BANCO IMOBILIÁRIO
+   VARIABLES.CSS
+   ========================================================= */
+
+:root {
+
+    /* CORES PRINCIPAIS */
+    --color-bg: #07111f;
+    --color-bg-dark: #030811;
+    --color-bg-light: #0d1c30;
+
+    --color-primary: #d4af37;
+    --color-primary-light: #f4d77b;
+    --color-primary-dark: #9b7815;
+
+    --color-secondary: #1b6ca8;
+    --color-secondary-light: #318bd0;
+
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    --color-text: #f4f7fb;
+    --color-text-soft: #aeb9c9;
+    --color-text-muted: #718096;
+
+    --color-success: #35d07f;
+    --color-warning: #f5b942;
+    --color-danger: #ed5364;
+    --color-info: #4ca3ff;
+
+    /* PAINÉIS */
+    --panel-bg: rgba(10, 24, 42, 0.88);
+    --panel-bg-light: rgba(20, 40, 65, 0.82);
+    --panel-border: rgba(212, 175, 55, 0.3);
+
+    /* BORDAS */
+    --border-color: rgba(255, 255, 255, 0.12);
+    --border-light: rgba(255, 255, 255, 0.2);
+    --border-gold: rgba(212, 175, 55, 0.5);
+
+    /* SOMBRAS */
+    --shadow-small: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-large: 0 20px 60px rgba(0, 0, 0, 0.55);
+
+    --shadow-gold:
+        0 0 15px rgba(212, 175, 55, 0.18);
+
+    /* BORDAS ARREDONDADAS */
+    --radius-small: 6px;
+    --radius-medium: 12px;
+    --radius-large: 20px;
+    --radius-round: 999px;
+
+    /* TRANSIÇÕES */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+    --transition-slow: 0.4s ease;
+
+    /* TIPOGRAFIA */
+    --font-main:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    --font-title:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    /* CAMADAS */
+    --z-background: 0;
+    --z-content: 10;
+    --z-header: 50;
+    --z-dropdown: 100;
+    --z-modal: 500;
+    --z-notification: 1000;
+
+    /* DIMENSÕES */
+    --header-height: 70px;
+    --sidebar-width: 280px;
+}

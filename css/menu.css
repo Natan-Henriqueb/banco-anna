@@ -1,0 +1,882 @@
+/* =========================================================
+   MENU PRINCIPAL
+   BANCO IMOBILIÁRIO
+   ========================================================= */
+
+.menu {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    padding: 40px 20px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.menu-container {
+    width: min(520px, 94vw);
+
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.menu-logo {
+    position: relative;
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+    animation: logoFloat 5s ease-in-out infinite;
+}
+
+.menu-logo h1 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(65px, 8vw, 88px);
+
+    line-height: 0.85;
+
+    letter-spacing: 4px;
+
+    color: #e9bd43;
+
+    text-shadow:
+        0 2px 0 #8e691b,
+        0 4px 0 #715317,
+        0 8px 20px rgba(0,0,0,.8),
+        0 0 35px rgba(226,181,55,.18);
+}
+
+.menu-logo p {
+    margin-top: 15px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 8px;
+
+    color: rgba(222,226,232,.68);
+
+    text-transform: uppercase;
+}
+
+
+/* linhas do logo */
+
+.logo-line {
+    position: absolute;
+
+    width: 105px;
+    height: 1px;
+
+    top: 52%;
+
+    left: -125px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d7aa38
+        );
+
+    box-shadow:
+        0 0 10px rgba(218,172,50,.35);
+}
+
+.logo-line::after {
+    content: "";
+
+    position: absolute;
+
+    left: 230px;
+
+    width: 105px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d7aa38,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   PAINEL
+   ========================================================= */
+
+.menu-panel {
+    width: 100%;
+
+    position: relative;
+
+    padding: 32px 28px 25px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(19,34,52,.96),
+            rgba(3,13,25,.98)
+        );
+
+    border: 1px solid rgba(210,166,52,.72);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.65),
+        0 0 45px rgba(204,157,39,.06),
+        inset 0 1px 0 rgba(255,255,255,.06),
+        inset 0 0 45px rgba(0,0,0,.35);
+
+    backdrop-filter: blur(14px);
+
+    overflow: hidden;
+}
+
+
+/* borda interna */
+
+.menu-panel::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 7px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(222,176,53,.13);
+
+    pointer-events: none;
+}
+
+
+/* brilho superior */
+
+.menu-panel::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 130px;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #f0c94d,
+            transparent
+        );
+
+    box-shadow:
+        0 0 20px rgba(236,190,61,.6);
+}
+
+
+/* =========================================================
+   DECORAÇÕES DOS CANTOS
+   ========================================================= */
+
+.panel-decoration {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    border-color: rgba(221,174,52,.55);
+
+    pointer-events: none;
+}
+
+.top-left {
+    top: 18px;
+    left: 18px;
+
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.top-right {
+    top: 18px;
+    right: 18px;
+
+    border-top: 1px solid;
+    border-right: 1px solid;
+}
+
+.bottom-left {
+    bottom: 18px;
+    left: 18px;
+
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+}
+
+.bottom-right {
+    bottom: 18px;
+    right: 18px;
+
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.menu-buttons {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 11px;
+
+    position: relative;
+
+    z-index: 3;
+}
+
+
+.menu-button {
+    width: 100%;
+
+    min-height: 55px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(187,145,48,.42);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(27,44,65,.98),
+            rgba(10,23,38,.98)
+        );
+
+    color: #f1f3f6;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: .8px;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+
+/* brilho que passa pelo botão */
+
+.menu-button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 75%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.11),
+            transparent
+        );
+
+    transform: skewX(-25deg);
+
+    transition: left .65s ease;
+}
+
+
+.menu-button:hover::before {
+    left: 140%;
+}
+
+
+.menu-button:hover {
+    transform:
+        translateY(-3px)
+        scale(1.01);
+
+    border-color:
+        rgba(231,190,77,.85);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(32,52,77,1),
+            rgba(14,29,47,1)
+        );
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.4),
+        0 0 22px rgba(214,169,52,.10);
+}
+
+
+.menu-button:active {
+    transform:
+        translateY(1px)
+        scale(.99);
+}
+
+
+.menu-button span {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   BOTÃO JOGAR
+   ========================================================= */
+
+.menu-button.primary {
+    color: #111820;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5d77a 0%,
+            #dcae35 48%,
+            #edc653 100%
+        );
+
+    border-color: #f5d477;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.35),
+        0 0 25px rgba(222,175,48,.18);
+}
+
+
+.menu-button.primary:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #ffe69a,
+            #e9bd48,
+            #f8d978
+        );
+
+    border-color: #ffe9a7;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.45),
+        0 0 35px rgba(230,183,57,.28);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.menu-footer {
+    margin-top: 23px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    color: rgba(179,191,204,.48);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    position: relative;
+
+    z-index: 3;
+}
+
+
+.footer-line {
+    width: 45px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(207,163,49,.35)
+        );
+}
+
+
+.footer-line:last-child {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes logoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+.fade-in {
+    animation:
+        menuAppear .9s ease-out both;
+}
+
+
+@keyframes menuAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .menu {
+        padding: 25px 15px;
+    }
+
+    .menu-logo h1 {
+        font-size: 55px;
+    }
+
+    .menu-logo p {
+        font-size: 8px;
+        letter-spacing: 5px;
+    }
+
+    .logo-line {
+        display: none;
+    }
+
+    .menu-panel {
+        padding: 26px 18px 20px;
+        border-radius: 19px;
+    }
+
+    .menu-button {
+        min-height: 51px;
+        font-size: 13px;
+    }
+}
+
+
+@media (max-height: 750px) {
+
+    .menu {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .menu-logo {
+        margin-bottom: 22px;
+    }
+
+    .menu-logo h1 {
+        font-size: 58px;
+    }
+
+    .menu-panel {
+        padding-top: 24px;
+        padding-bottom: 18px;
+    }
+
+    .menu-buttons {
+        gap: 8px;
+    }
+
+    .menu-button {
+        min-height: 47px;
+    }
+}
+
+/* =========================================================
+   DADOS FLUTUANTES
+   ========================================================= */
+
+.floating-dice {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+
+.floating-die {
+    position: absolute;
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f1cf6a,
+            #b88a24
+        );
+
+    border: 2px solid rgba(255,224,126,.75);
+
+    box-shadow:
+        inset 8px 8px 15px rgba(255,255,255,.22),
+        inset -8px -8px 15px rgba(81,53,8,.3),
+        0 18px 35px rgba(0,0,0,.5),
+        0 0 25px rgba(215,169,48,.12);
+
+    opacity: .20;
+
+    transform-style: preserve-3d;
+}
+
+
+.die-face {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+}
+
+
+/* bolinhas */
+
+.die-face span {
+    position: absolute;
+
+    width: 11px;
+    height: 11px;
+
+    border-radius: 50%;
+
+    background: #172333;
+
+    box-shadow:
+        inset 1px 1px 2px rgba(255,255,255,.15);
+}
+
+
+/* posições */
+
+.die-face span:nth-child(1) {
+    top: 14px;
+    left: 14px;
+}
+
+.die-face span:nth-child(2) {
+    top: 14px;
+    right: 14px;
+}
+
+.die-face span:nth-child(3) {
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%,-50%);
+}
+
+.die-face span:nth-child(4) {
+    bottom: 14px;
+    left: 14px;
+}
+
+.die-face span:nth-child(5) {
+    bottom: 14px;
+    right: 14px;
+}
+
+.die-face span:nth-child(6) {
+    top: 50%;
+    left: 14px;
+
+    transform: translateY(-50%);
+}
+
+
+/* dado 1 */
+
+.die-1 {
+    left: 7%;
+    top: 23%;
+
+    animation:
+        diceFloat1
+        8s
+        ease-in-out
+        infinite;
+}
+
+
+/* dado 2 */
+
+.die-2 {
+    right: 8%;
+    top: 31%;
+
+    width: 58px;
+    height: 58px;
+
+    opacity: .16;
+
+    animation:
+        diceFloat2
+        10s
+        ease-in-out
+        infinite;
+}
+
+
+/* dado 3 */
+
+.die-3 {
+    left: 12%;
+    bottom: 18%;
+
+    width: 48px;
+    height: 48px;
+
+    opacity: .13;
+
+    animation:
+        diceFloat3
+        11s
+        ease-in-out
+        infinite;
+}
+
+
+/* dado 4 */
+
+.die-4 {
+    right: 13%;
+    bottom: 15%;
+
+    width: 80px;
+    height: 80px;
+
+    opacity: .13;
+
+    animation:
+        diceFloat4
+        12s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================================
+   MOVIMENTOS
+   ========================================================= */
+
+@keyframes diceFloat1 {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0,0,0)
+            rotate(8deg);
+    }
+
+    50% {
+        transform:
+            translate3d(25px,-35px,0)
+            rotate(25deg);
+    }
+}
+
+
+@keyframes diceFloat2 {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0,0,0)
+            rotate(-12deg);
+    }
+
+    50% {
+        transform:
+            translate3d(-30px,28px,0)
+            rotate(-35deg);
+    }
+}
+
+
+@keyframes diceFloat3 {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0,0,0)
+            rotate(15deg);
+    }
+
+    50% {
+        transform:
+            translate3d(35px,-25px,0)
+            rotate(50deg);
+    }
+}
+
+
+@keyframes diceFloat4 {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0,0,0)
+            rotate(-8deg);
+    }
+
+    50% {
+        transform:
+            translate3d(-25px,-30px,0)
+            rotate(30deg);
+    }
+}
+
+
+/* =========================================================
+   BRILHO INFERIOR
+   ========================================================= */
+
+.bottom-glow {
+    position: fixed;
+
+    left: 50%;
+    bottom: -180px;
+
+    transform: translateX(-50%);
+
+    width: 700px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(202,157,43,.12),
+            transparent 70%
+        );
+
+    filter: blur(30px);
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+@media (max-width: 700px) {
+
+    .floating-die {
+        opacity: .08;
+    }
+
+    .die-1 {
+        left: -10px;
+    }
+
+    .die-2 {
+        right: -10px;
+    }
+
+    .die-3,
+    .die-4 {
+        display: none;
+    }
+}

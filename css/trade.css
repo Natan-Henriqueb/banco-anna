@@ -1,0 +1,97 @@
+/* =========================================================
+   TRADE.CSS
+   ========================================================= */
+
+.trade-panel {
+    width: min(800px, 95vw);
+    padding: 25px;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-large);
+
+    box-shadow: var(--shadow-large);
+}
+
+.trade-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.trade-header h2 {
+    color: var(--color-primary);
+    font-family: var(--font-title);
+}
+
+.trade-participants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.trade-side {
+    padding: 18px;
+
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+}
+
+.trade-side h3 {
+    margin-bottom: 15px;
+    color: var(--color-primary);
+}
+
+.trade-items {
+    min-height: 120px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 10px;
+
+    border: 1px dashed var(--border-light);
+    border-radius: 10px;
+}
+
+.trade-item {
+    padding: 10px;
+
+    background: rgba(255,255,255,.06);
+    border-radius: 8px;
+}
+
+.trade-money {
+    margin-top: 12px;
+}
+
+.trade-money input {
+    padding: 10px;
+}
+
+.trade-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.trade-actions button {
+    padding: 12px 20px;
+    border-radius: 9px;
+
+    border: 1px solid var(--border-gold);
+    background: rgba(212,175,55,.1);
+
+    font-weight: 700;
+}
+
+.trade-actions .accept {
+    background: var(--color-primary);
+    color: #07111f;
+}

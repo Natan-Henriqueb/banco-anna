@@ -1,0 +1,123 @@
+/* =========================================================
+   LOBBY.CSS
+   ========================================================= */
+
+.lobby {
+    min-height: 100vh;
+    padding: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.lobby-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+    padding: 20px 25px;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-large);
+
+    box-shadow: var(--shadow-medium);
+}
+
+.lobby-title {
+    font-family: var(--font-title);
+    color: var(--color-primary);
+    font-size: 32px;
+}
+
+.lobby-content {
+    width: min(1200px, 100%);
+    margin: auto;
+}
+
+.lobby-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.lobby-card {
+    padding: 25px;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-large);
+
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow-medium);
+}
+
+.lobby-card h2 {
+    margin-bottom: 20px;
+    color: var(--color-primary);
+    font-size: 20px;
+}
+
+.room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.room-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px;
+
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    transition: var(--transition-normal);
+}
+
+.room-item:hover {
+    border-color: var(--border-gold);
+    background: rgba(212,175,55,.06);
+}
+
+.room-code {
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+}
+
+.room-players {
+    color: var(--color-text-soft);
+    font-size: 13px;
+}
+
+.lobby-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.lobby-button {
+    flex: 1;
+    min-width: 160px;
+
+    padding: 13px 18px;
+
+    border-radius: 10px;
+    border: 1px solid var(--border-gold);
+
+    background: rgba(212,175,55,.08);
+    color: var(--color-text);
+
+    font-weight: 700;
+
+    transition: var(--transition-normal);
+}
+
+.lobby-button:hover {
+    background: rgba(212,175,55,.18);
+    transform: translateY(-2px);
+}

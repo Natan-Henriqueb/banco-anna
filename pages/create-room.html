@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Banco Imobiliário — Jogar Online</title>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/room.css">
+
+</head>
+
+<body>
+
+<div class="room-world">
+
+    <!-- FUNDO -->
+
+    <div class="room-city">
+
+        <div class="room-building rb1"></div>
+        <div class="room-building rb2"></div>
+        <div class="room-building rb3"></div>
+        <div class="room-building rb4"></div>
+        <div class="room-building rb5"></div>
+
+    </div>
+
+
+    <!-- LUZES -->
+
+    <div class="room-light light-one"></div>
+    <div class="room-light light-two"></div>
+
+
+    <!-- DADOS -->
+
+    <div class="room-floating-dice dice-a">
+        ⚄
+    </div>
+
+    <div class="room-floating-dice dice-b">
+        ⚂
+    </div>
+
+
+    <!-- PARTÍCULAS -->
+
+    <div class="room-particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+
+    <!-- CONTEÚDO -->
+
+    <main class="room-container">
+
+
+        <!-- LOGO -->
+
+        <div class="room-logo">
+
+            <div class="room-crown">
+                ♛
+            </div>
+
+            <div class="room-logo-text">
+
+                <strong>
+                    BANCO
+                </strong>
+
+                <span>
+                    IMOBILIÁRIO
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAINEL -->
+
+        <section class="room-panel">
+
+            <div class="room-panel-header">
+
+                <span>
+                    MULTIPLAYER
+                </span>
+
+                <h1>
+                    JOGAR ONLINE
+                </h1>
+
+                <p>
+                    Crie uma sala ou entre em uma partida existente.
+                </p>
+
+            </div>
+
+
+            <!-- NOME -->
+
+            <div class="room-field">
+
+                <label for="playerName">
+                    NOME DO JOGADOR
+                </label>
+
+                <input
+                    id="playerName"
+                    type="text"
+                    maxlength="16"
+                    placeholder="Digite seu nome"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- CRIAR -->
+
+            <button
+                id="createRoomButton"
+                type="button"
+                class="room-main-button"
+            >
+
+                <span class="room-button-icon">
+                    ♛
+                </span>
+
+                <div>
+
+                    <strong>
+                        CRIAR NOVA SALA
+                    </strong>
+
+                    <small>
+                        Começar uma nova partida
+                    </small>
+
+                </div>
+
+            </button>
+
+
+            <!-- DIVISOR -->
+
+            <div class="room-divider">
+
+                <i></i>
+
+                <span>
+                    OU
+                </span>
+
+                <i></i>
+
+            </div>
+
+
+            <!-- CÓDIGO -->
+
+            <div class="room-field">
+
+                <label for="roomCode">
+                    CÓDIGO DA SALA
+                </label>
+
+                <input
+                    id="roomCode"
+                    type="text"
+                    maxlength="5"
+                    placeholder="Ex: A7K92"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- ENTRAR -->
+
+            <button
+                id="joinRoomButton"
+                type="button"
+                class="room-main-button secondary"
+            >
+
+                <span class="room-button-icon">
+                    ➜
+                </span>
+
+                <div>
+
+                    <strong>
+                        ENTRAR NA SALA
+                    </strong>
+
+                    <small>
+                        Entrar em uma partida existente
+                    </small>
+
+                </div>
+
+            </button>
+
+
+            <!-- STATUS -->
+
+            <div
+                id="roomStatus"
+                class="room-status"
+            ></div>
+
+
+            <!-- VOLTAR -->
+
+            <button
+                id="backButton"
+                type="button"
+                class="room-back"
+            >
+                ← Voltar ao menu
+            </button>
+
+        </section>
+
+
+        <!-- RODAPÉ -->
+
+        <div class="room-footer">
+
+            <span>🎲</span>
+
+            MULTIPLAYER
+
+            <b>•</b>
+
+            ATÉ 8 JOGADORES
+
+            <b>•</b>
+
+            BANCO IMOBILIÁRIO
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- SOCKET.IO -->
+
+<script src="/socket.io/socket.io.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   CONEXÃO
+========================================================= */
+
+const socket = io({
+
+    transports: ["websocket", "polling"],
+
+    reconnection: true,
+
+    reconnectionAttempts: 10
+
+});
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const nameInput =
+    document.getElementById("playerName");
+
+const codeInput =
+    document.getElementById("roomCode");
+
+const statusBox =
+    document.getElementById("roomStatus");
+
+const createButton =
+    document.getElementById("createRoomButton");
+
+const joinButton =
+    document.getElementById("joinRoomButton");
+
+const backButton =
+    document.getElementById("backButton");
+
+
+/* =========================================================
+   NOME SALVO
+========================================================= */
+
+const savedName =
+    localStorage.getItem("playerName");
+
+if (savedName) {
+
+    nameInput.value = savedName;
+
+}
+
+
+/* =========================================================
+   CÓDIGO DA SALA
+========================================================= */
+
+codeInput.addEventListener(
+    "input",
+    function () {
+
+        this.value =
+            this.value
+                .toUpperCase()
+                .replace(/[^A-Z0-9]/g, "")
+                .substring(0, 5);
+
+    }
+);
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function showStatus(
+    message,
+    error = false
+) {
+
+    statusBox.textContent = message;
+
+    statusBox.classList.toggle(
+        "error",
+        error
+    );
+
+}
+
+
+/* =========================================================
+   BLOQUEAR BOTÕES
+========================================================= */
+
+function setLoading(loading) {
+
+    createButton.disabled = loading;
+
+    joinButton.disabled = loading;
+
+    if (loading) {
+
+        createButton.style.opacity = "0.65";
+
+        joinButton.style.opacity = "0.65";
+
+        createButton.style.pointerEvents = "none";
+
+        joinButton.style.pointerEvents = "none";
+
+    } else {
+
+        createButton.style.opacity = "";
+
+        joinButton.style.opacity = "";
+
+        createButton.style.pointerEvents = "";
+
+        joinButton.style.pointerEvents = "";
+
+    }
+
+}
+
+
+/* =========================================================
+   CRIAR SALA
+========================================================= */
+
+function createRoom() {
+
+    const nickname =
+        nameInput.value.trim();
+
+
+    if (!nickname) {
+
+        showStatus(
+            "Digite seu nome para continuar.",
+            true
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if (nickname.length < 2) {
+
+        showStatus(
+            "Seu nome precisa ter pelo menos 2 caracteres.",
+            true
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if (!socket.connected) {
+
+        showStatus(
+            "Conectando ao servidor..."
+        );
+
+        socket.connect();
+
+        setTimeout(
+            function () {
+
+                if (socket.connected) {
+
+                    createRoom();
+
+                } else {
+
+                    showStatus(
+                        "Não foi possível conectar ao servidor. Verifique se o jogo está iniciado.",
+                        true
+                    );
+
+                    setLoading(false);
+
+                }
+
+            },
+            1000
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "playerName",
+        nickname
+    );
+
+
+    setLoading(true);
+
+
+    showStatus(
+        "Criando sua sala..."
+    );
+
+
+    console.log(
+        "[BANCO] Criando sala com jogador:",
+        nickname
+    );
+
+
+    /*
+        O SERVER.JS espera:
+
+        name
+        settings
+
+        E responde através do callback.
+    */
+
+    socket.emit(
+        "room:create",
+        {
+            name: nickname,
+            settings: {}
+        },
+        function (response) {
+
+            console.log(
+                "[BANCO] Resposta da criação:",
+                response
+            );
+
+
+            if (
+                !response ||
+                !response.success
+            ) {
+
+                setLoading(false);
+
+                showStatus(
+                    (
+                        response &&
+                        (
+                            response.error ||
+                            response.message
+                        )
+                    ) ||
+                    "Não foi possível criar a sala.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const room =
+                response.room;
+
+
+            const roomCode =
+                room &&
+                room.code;
+
+
+            if (!roomCode) {
+
+                setLoading(false);
+
+                showStatus(
+                    "A sala foi criada, mas o código não foi recebido.",
+                    true
+                );
+
+                console.error(
+                    "[BANCO] Resposta sem código:",
+                    response
+                );
+
+                return;
+
+            }
+
+
+            /*
+                SALVAMOS OS DADOS DA SALA
+            */
+
+            localStorage.setItem(
+                "roomCode",
+                roomCode
+            );
+
+
+            localStorage.setItem(
+                "roomHost",
+                "true"
+            );
+
+
+            if (response.playerId) {
+
+                localStorage.setItem(
+                    "playerId",
+                    response.playerId
+                );
+
+            }
+
+
+            if (room.hostId) {
+
+                localStorage.setItem(
+                    "hostId",
+                    room.hostId
+                );
+
+            }
+
+
+            /*
+                GUARDA A SALA COMPLETA
+                PARA O LOBBY
+            */
+
+            localStorage.setItem(
+                "roomData",
+                JSON.stringify(room)
+            );
+
+
+            showStatus(
+                "Sala criada! Entrando no lobby..."
+            );
+
+
+            console.log(
+                "[BANCO] Sala criada:",
+                roomCode
+            );
+
+
+            /*
+                AGORA VAI PARA O LOBBY
+                E NÃO DIRETO PARA O TABULEIRO
+            */
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "lobby.html";
+
+                },
+                500
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BOTÃO CRIAR
+========================================================= */
+
+createButton.addEventListener(
+    "click",
+    createRoom
+);
+
+
+/* =========================================================
+   ENTRAR NA SALA
+========================================================= */
+
+function joinRoom() {
+
+    const nickname =
+        nameInput.value.trim();
+
+    const roomCode =
+        codeInput.value
+            .trim()
+            .toUpperCase();
+
+
+    if (!nickname) {
+
+        showStatus(
+            "Digite seu nome.",
+            true
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if (nickname.length < 2) {
+
+        showStatus(
+            "Seu nome precisa ter pelo menos 2 caracteres.",
+            true
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if (!roomCode) {
+
+        showStatus(
+            "Digite o código da sala.",
+            true
+        );
+
+        codeInput.focus();
+
+        return;
+
+    }
+
+
+    /*
+        O servidor gera códigos com 5 caracteres.
+    */
+
+    if (roomCode.length !== 5) {
+
+        showStatus(
+            "O código da sala deve possuir 5 caracteres.",
+            true
+        );
+
+        codeInput.focus();
+
+        return;
+
+    }
+
+
+    if (!socket.connected) {
+
+        showStatus(
+            "Servidor desconectado. Aguarde a conexão.",
+            true
+        );
+
+        socket.connect();
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "playerName",
+        nickname
+    );
+
+
+    localStorage.setItem(
+        "roomCode",
+        roomCode
+    );
+
+
+    setLoading(true);
+
+
+    showStatus(
+        "Entrando na sala..."
+    );
+
+
+    console.log(
+        "[BANCO] Entrando na sala:",
+        roomCode
+    );
+
+
+    /*
+        O SERVER.JS espera:
+
+        code
+        name
+    */
+
+    socket.emit(
+        "room:join",
+        {
+            code: roomCode,
+            name: nickname
+        },
+        function (response) {
+
+            console.log(
+                "[BANCO] Resposta da entrada:",
+                response
+            );
+
+
+            if (
+                !response ||
+                !response.success
+            ) {
+
+                setLoading(false);
+
+                showStatus(
+                    (
+                        response &&
+                        (
+                            response.error ||
+                            response.message
+                        )
+                    ) ||
+                    "Não foi possível entrar na sala.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const room =
+                response.room;
+
+
+            const returnedCode =
+                room &&
+                room.code;
+
+
+            if (returnedCode) {
+
+                localStorage.setItem(
+                    "roomCode",
+                    returnedCode
+                );
+
+            }
+
+
+            localStorage.setItem(
+                "roomHost",
+                "false"
+            );
+
+
+            if (response.playerId) {
+
+                localStorage.setItem(
+                    "playerId",
+                    response.playerId
+                );
+
+            }
+
+
+            if (room && room.hostId) {
+
+                localStorage.setItem(
+                    "hostId",
+                    room.hostId
+                );
+
+            }
+
+
+            /*
+                GUARDA A SALA PARA O LOBBY
+            */
+
+            if (room) {
+
+                localStorage.setItem(
+                    "roomData",
+                    JSON.stringify(room)
+                );
+
+            }
+
+
+            showStatus(
+                "Entrada confirmada! Entrando no lobby..."
+            );
+
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "lobby.html";
+
+                },
+                500
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BOTÃO ENTRAR
+========================================================= */
+
+joinButton.addEventListener(
+    "click",
+    joinRoom
+);
+
+
+/* =========================================================
+   ATUALIZAÇÃO DA SALA
+========================================================= */
+
+socket.on(
+    "room:update",
+    function (room) {
+
+        if (!room) {
+            return;
+        }
+
+
+        console.log(
+            "[BANCO] Atualização da sala:",
+            room
+        );
+
+
+        /*
+            Se a sala já estiver salva,
+            atualizamos os dados.
+        */
+
+        const currentCode =
+            localStorage.getItem(
+                "roomCode"
+            );
+
+
+        if (
+            currentCode &&
+            room.code === currentCode
+        ) {
+
+            localStorage.setItem(
+                "roomData",
+                JSON.stringify(room)
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ERRO
+========================================================= */
+
+socket.on(
+    "room:error",
+    function (data) {
+
+        console.error(
+            "[BANCO] ERRO DA SALA:",
+            data
+        );
+
+
+        setLoading(false);
+
+
+        showStatus(
+            (
+                data &&
+                (
+                    data.message ||
+                    data.error
+                )
+            )
+            ||
+            "Não foi possível realizar a operação.",
+            true
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CONECTADO
+========================================================= */
+
+socket.on(
+    "connect",
+    function () {
+
+        console.log(
+            "[BANCO] Socket conectado:",
+            socket.id
+        );
+
+
+        showStatus(
+            "Servidor conectado."
+        );
+
+
+        setTimeout(
+            function () {
+
+                if (
+                    statusBox.textContent ===
+                    "Servidor conectado."
+                ) {
+
+                    statusBox.textContent = "";
+
+                }
+
+            },
+            1500
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ERRO DE CONEXÃO
+========================================================= */
+
+socket.on(
+    "connect_error",
+    function (error) {
+
+        console.error(
+            "[BANCO] Erro Socket.IO:",
+            error
+        );
+
+
+        setLoading(false);
+
+
+        showStatus(
+            "Não foi possível conectar ao servidor.",
+            true
+        );
+
+    }
+);
+
+
+/* =========================================================
+   DESCONECTADO
+========================================================= */
+
+socket.on(
+    "disconnect",
+    function () {
+
+        console.warn(
+            "[BANCO] Socket desconectado."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   VOLTAR
+========================================================= */
+
+backButton.addEventListener(
+    "click",
+    function () {
+
+        window.location.href =
+            "../index.html";
+
+    }
+);
+
+
+/* =========================================================
+   ENTER NO NOME
+========================================================= */
+
+nameInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Enter") {
+
+            createRoom();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ENTER NO CÓDIGO
+========================================================= */
+
+codeInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Enter") {
+
+            joinRoom();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

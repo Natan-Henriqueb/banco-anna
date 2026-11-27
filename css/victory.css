@@ -1,0 +1,122 @@
+/* =========================================================
+   VICTORY.CSS
+   ========================================================= */
+
+.victory {
+    position: fixed;
+    inset: 0;
+
+    z-index: 900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(2,7,14,.82);
+
+    backdrop-filter: blur(12px);
+}
+
+.victory-card {
+    width: min(650px, 100%);
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,38,62,.98),
+            rgba(4,13,24,.98)
+        );
+
+    border: 2px solid var(--color-primary);
+    border-radius: 25px;
+
+    box-shadow:
+        var(--shadow-large),
+        0 0 60px rgba(212,175,55,.12);
+}
+
+.victory-icon {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(212,175,55,.1);
+
+    border: 2px solid var(--color-primary);
+
+    color: var(--color-primary);
+
+    font-size: 40px;
+}
+
+.victory-card h1 {
+    color: var(--color-primary);
+
+    font-family: var(--font-title);
+
+    font-size: clamp(35px, 6vw, 58px);
+}
+
+.victory-card p {
+    margin-top: 12px;
+
+    color: var(--color-text-soft);
+}
+
+.victory-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    margin: 30px 0;
+}
+
+.victory-stat {
+    padding: 15px;
+
+    background: rgba(255,255,255,.04);
+
+    border-radius: 10px;
+}
+
+.victory-stat strong {
+    display: block;
+    color: var(--color-primary);
+    font-size: 22px;
+}
+
+.victory-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.victory-actions button {
+    flex: 1;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--border-gold);
+    background: rgba(212,175,55,.1);
+
+    font-weight: 800;
+}
+
+.victory-actions button.primary {
+    background: var(--color-primary);
+    color: #07111f;
+}
